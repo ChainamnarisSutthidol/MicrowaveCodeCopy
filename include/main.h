@@ -36,6 +36,8 @@
 
 #include "api.h"
 #include "drive.hpp"
+#include "pid.hpp"
+#include "flywheel.hpp"
 /**
  * You should add more #includes here
  */
