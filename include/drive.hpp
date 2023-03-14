@@ -24,3 +24,4 @@ void brake_initialize();
 void flywheel_shoot(double times, double delay);
 void Wait(int time);
 void Slow_D(double power, double time);
+double ema(double input, double alpha);
