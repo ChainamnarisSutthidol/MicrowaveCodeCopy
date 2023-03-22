@@ -33,7 +33,6 @@ void Drive(double setpoint, int time, int f_speed) {
   double circumference = 4.125 * M_PI;
   double tick_per_inch = degrees_per_rotation / circumference;
   double distance = setpoint * tick_per_inch;
-  double conv_dist = distance * (setpoint / 2.5);
   // setpoint is in inches, so convert to ticks for degrees
 
   drive_PID.set(distance);
@@ -72,7 +71,7 @@ void Turn(double setpoint, int time, int f_speed) {
   pros::delay(300);
 }
 
-int drivePID()
-{
+//int drivePID()
+//{
 
-}
+//}
