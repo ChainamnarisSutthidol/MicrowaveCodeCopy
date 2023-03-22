@@ -8,7 +8,9 @@ inline pros::Motor l1(2, pros::E_MOTOR_GEARSET_18, false,
                       pros::E_MOTOR_ENCODER_DEGREES);
 inline pros::Motor l2(1, pros::E_MOTOR_GEARSET_18, false);
 inline pros::Motor rollers(8, true);
-inline pros::Motor flywheel(7, false);
+inline pros::Motor f_motor1(7, false);
+inline pros::Motor f_motor2(6, true);
+inline pros::Motor_Group flywheel({f_motor1, f_motor2});
 inline pros::Motor indexer(10, false);
 inline pros::ADIDigitalOut pew('a');
 inline pros::ADIDigitalOut expansion('b');
@@ -24,3 +26,4 @@ void brake_initialize();
 void flywheel_shoot(double times, double delay);
 void Wait(int time);
 void Slow_D(double power, double time);
+double ema(double input, double alpha);
