@@ -37,7 +37,7 @@
 #include "api.h"
 #include "drive.hpp"
 #include "pid.hpp"
-#include "flywheel.hpp"
+#include "EZ-GUI/api.hpp"
 /**
  * You should add more #includes here
  */

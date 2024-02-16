@@ -7,6 +7,21 @@
  * When this callback is fired, it will toggle line 2 of the LCD text
  * between "I was pressed!" and nothing.
  */
+
+ ez::GUI display(
+    {{l1, "left 1"},
+     {l2, "left 2"},
+     {r2, "right 2"},
+     {r1, "right 1"},
+     {l3, "left 3"},
+     {r3, "right 3"},
+     {intake, "intake"},
+     {flywheel, "fly 1"}},
+
+    {{"Far Side", FarSide},
+    {"Close Side WP", CloseSideWP},
+    {"Close Side Disrupt", CloseSideDis},
+    {"Skills", skills}});
 void on_center_button() {
   static bool pressed = false;
   pressed = !pressed;
@@ -21,17 +36,19 @@ void on_center_button() {
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
+ * to keep execution time for this mode under a few seconds.pros
  */
 void initialize() {
 
-  pros::lcd::initialize();
-  pros::lcd::print(1, "hallo");
+  //pros::lcd::initialize();
+  //pros::lcd::print(1, "hallo");
 
-  pros::lcd::register_btn1_cb(on_center_button);
+  //pros::lcd::register_btn1_cb(on_center_button);
+
   brake_initialize();
   gyro.reset();
   pros::delay(2000);
+  display.enable();
 }
 
 /**
@@ -64,12 +81,17 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-  // match_auto(1);
-  // skills();
-  flywheel = 105;
-  Wait(2000);
-  flywheel_shoot(3, 800);
-}
+  // wings1.set_value(true);
+  // wings2.set_value(true);
+  // display.auton_call();
+  // Wait(3);
+  skills();
+  // Turn(100, 1000);
+  // CloseSideDis();
+  // CloseSideWP();
+  // FarSide();
+  // Turn(35,1200);
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via

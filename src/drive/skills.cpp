@@ -1,43 +1,53 @@
+#include "drive.hpp"
 #include "main.h"
+#include "pid.hpp"
+#include "pros/motors.h"
+#include <string>
 
 void skills() {
-  rollers = 90; // spins roller
-  Drive(5, 500, 0);
-  Drive(-6, 500, 0);
-  Turn(110, 1000, 0);
-  rollers = -100;    // intakes 1 disc closest
-  Slow_D(100, 1300); // spins roller 2
-  Drive(-6, 500, 103);
-  Turn(0, 1000, 103);
-  Drive(-50, 2000, 103); // drives up to high goal
-  Turn(10, 500, 103);
-  flywheel_shoot(3, 575);
-  Turn(0, 500, 0);
-  Drive(80, 1750, 0);
-  Turn(-135, 1500, 0); // picks up straight 3 in the middle
-  rollers = -127;
-  Slow_D(85, 2250);
-  Wait(500);
-  Turn(-37, 1000, 97);
-  Wait(500);
-  flywheel_shoot(3, 800);
-  Turn(-135, 1000, 0); // picks up 3 stack
-  Drive(20, 1000, 100);
-  Turn(-135, 1000, 100);
-  rollers = -100;
-  Slow_D(50, 1350);
-  Turn(105, 1000, 100);
-  flywheel_shoot(3, 900); // shoots 3 stack
-  Turn(-135, 1000, 0);    // gets rollers
-  Drive(30, 1000, 0);
-  Turn(180, 1000, 0);
-  rollers = 90; // spins roller
-  Drive(8, 500, 0);
-  Drive(-6, 500, 0); // spins roller 2
-  Turn(-70, 1000, 0);
-  rollers = -90; // intakes 1 disc closest
-  Slow_D(100, 1600);
-  Drive(-4, 500, 0);
-  Turn(45, 1000, 0); // expansion
-  expansion.set_value(true);
-}
+    // Drive(14.5, 950);
+    // Turn(-65, 1150);
+    // extend_wings(std::to_string(true));
+    // flySpeed(600); //spins flywheel/kicker
+    // Wait(3);
+    // flywheel.move_velocity(0);
+    // extend_wings(std::to_string(false));
+    
+    // Turn(90, 1200);
+    // Drive(56, 1100);
+    // Turn(-45, 900);
+    // Drive(15, 750);
+    // intake.move_velocity(-200);
+    // Wait(0.25);
+    // Turn(135, 1000);
+    // set_tankAuton(100, 100, 1.5);
+    // Turn(135, 800);
+    // extend_wings(std::to_string(true));
+    // set_tankAuton(127, 127, 1.5); // middle score
+    // extend_wings(std::to_string(false));
+    // Drive(-7, 750);
+    
+    Turn(225, 1400); // turn to right score
+    Drive(54, 1500);
+    Turn(90, 1100);
+    Drive(25, 1100);
+    Turn(-135, 1600);
+    Drive(-15, 800);
+    Drive(7, 700);
+    Turn(-135, 600);
+    Drive(-15, 800);
+    Drive(7, 700); // right score
+
+    Turn(-45, 1200);
+    Drive(25, 1200);
+    Turn(45, 900);
+    Drive(150, 1500); // drive to left score
+    Turn(0, 750);
+    Drive(-15, 900);
+    Turn(45, 750);
+    Drive(-15, 900);
+    Drive(7, 800);
+    Turn(45, 400);
+    Drive(-15, 900);
+    Drive(7, 800);    
+    }

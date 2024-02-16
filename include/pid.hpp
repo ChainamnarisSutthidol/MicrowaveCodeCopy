@@ -21,8 +21,8 @@ private:
   double integral;
 };
 
-inline PID drive_PID(1.5, 0.05, 2.75);
-inline PID turn_PID(2.9, 0.1, 5.6);
-inline PID fw_PID(0.001, 0, 0);
-void Drive(double setpoint);
-void Turn(double target);
+inline PID drive_PID(3.85, 0.06, 0.65);
+inline PID turn_PID(1.75, 0.08, 0.55);
+inline PID flywheel_PID(4, 0, 0);
+void Drive(double setpoint, int time);
+void Turn(double target, int time);

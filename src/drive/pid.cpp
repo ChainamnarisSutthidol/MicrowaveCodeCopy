@@ -25,15 +25,13 @@ double PID::compute(double sensorValue) {
   pros::lcd::set_text(4, std::to_string(setpoint));
   return error * kP + integral * kI + derivative * kD;
 }
-void Drive(double setpoint, int time, int f_speed) {
-  flywheel = f_speed;
+void Drive(double setpoint, int time) {
   r1.tare_position();
   l1.tare_position();
-  double degrees_per_rotation = 360;
-  double circumference = 4.125 * M_PI;
-  double tick_per_inch = degrees_per_rotation / circumference;
+  double degrees_per_rotation = 840;
+  double circumference = 4 * M_PI;
+  double tick_per_inch = (degrees_per_rotation/circumference);
   double distance = setpoint * tick_per_inch;
-  double conv_dist = distance * (setpoint / 2.5);
   // setpoint is in inches, so convert to ticks for degrees
 
   drive_PID.set(distance);
@@ -42,7 +40,7 @@ void Drive(double setpoint, int time, int f_speed) {
   while (t_d < time) {
     double power =
         drive_PID.compute((r1.get_position() + l1.get_position()) / 2);
-    // gets the average of the wheels to do pid more efficiently
+    // gets the average of the wheels to do pid more accurately
     set_tank(power, power);
     if (drive_PID.power < 0.2) {
       t_d += 10;
@@ -51,11 +49,11 @@ void Drive(double setpoint, int time, int f_speed) {
     }
     pros::delay(10);
   }
-  pros::delay(300);
+  set_tank(0,0);
+  pros::delay(75);
 }
 
-void Turn(double setpoint, int time, int f_speed) {
-  flywheel = f_speed;
+void Turn(double setpoint, int time) {
   int t_t = 0;
   turn_PID.set(setpoint);
   while (t_t < time) {
@@ -68,11 +66,13 @@ void Turn(double setpoint, int time, int f_speed) {
     }
     pros::delay(10);
   }
-  set_tank(0, 0);
-  pros::delay(300);
+  set_tank(0,0);
+  pros::delay(75);
 }
 
-//int drivePID()
-//{
-
-//}
+void flySpeed(double setpoint) {
+  turn_PID.set(setpoint);
+    double power = flywheel_PID.compute(flywheel.get_actual_velocity());
+    flywheel.move_velocity(power);
+    pros::delay(10);
+  }
