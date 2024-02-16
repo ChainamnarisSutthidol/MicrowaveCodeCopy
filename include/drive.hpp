@@ -30,5 +30,5 @@ void flywheel_shoot(double times, double delay);
 void Wait(double time);
 void Slow_D(double power, double time);
 double ema(double input, double alpha);
-void flySpeed(int flywheel_rpm);
+void flySpeed(double flywheel_rpm);
 void extend_wings(std::string mode);
