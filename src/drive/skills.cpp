@@ -41,7 +41,7 @@ void skills() {
     Turn(-45, 1200);
     Drive(25, 1200);
     Turn(45, 900);
-    Drive(150, 1500); // drive to left score
+    Drive(240, 1500); // drive to left score
     Turn(0, 750);
     Drive(-15, 900);
     Turn(45, 750);

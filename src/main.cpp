@@ -85,8 +85,8 @@ void autonomous() {
   // wings2.set_value(true);
   // display.auton_call();
   // Wait(3);
-  // skills();
-  Drive(240, 1500);
+  skills();
+  // Drive(240, 1500);
   // Turn(100, 1000);
   // CloseSideDis();
   // CloseSideWP();
