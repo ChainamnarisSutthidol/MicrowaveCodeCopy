@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Skills",
+    "project_name": "AtomicCode",
     "target": "v5",
     "templates": {
       "EZ-GUI": {
@@ -326,7 +326,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 3
+      "slot": 1
     }
   }
 }

@@ -8,20 +8,20 @@
  * between "I was pressed!" and nothing.
  */
 
- ez::GUI display(
-    {{l1, "left 1"},
-     {l2, "left 2"},
-     {r2, "right 2"},
-     {r1, "right 1"},
-     {l3, "left 3"},
-     {r3, "right 3"},
-     {intake, "intake"},
-     {flywheel, "fly 1"}},
+//  ez::GUI display(
+//     {{l1, "left 1"},
+//      {l2, "left 2"},
+//      {r2, "right 2"},
+//      {r1, "right 1"},
+//      {l3, "left 3"},
+//      {r3, "right 3"},
+//      {intake, "intake"},
+//      {flywheel, "fly 1"}},
 
-    {{"Far Side", FarSide},
-    {"Close Side WP", CloseSideWP},
-    {"Close Side Disrupt", CloseSideDis},
-    {"Skills", skills}});
+//     {{"Far Side", FarSide},
+//     {"Close Side WP", CloseSideWP},
+//     {"Close Side Disrupt", CloseSideDis},
+//     {"Skills", skills}});
 void on_center_button() {
   static bool pressed = false;
   pressed = !pressed;
@@ -40,15 +40,15 @@ void on_center_button() {
  */
 void initialize() {
 
-  //pros::lcd::initialize();
-  //pros::lcd::print(1, "hallo");
+  pros::lcd::initialize();
+  pros::lcd::print(1, "hallo");
 
-  //pros::lcd::register_btn1_cb(on_center_button);
+  // pros::lcd::register_btn1_cb(on_center_button);
 
   brake_initialize();
   gyro.reset();
   pros::delay(2000);
-  display.enable();
+  // display.enable();
 }
 
 /**
@@ -80,19 +80,7 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {
-  // wings1.set_value(true);
-  // wings2.set_value(true);
-  // display.auton_call();
-  // Wait(3);
-  skills();
-  // Drive(240, 1500);
-  // Turn(100, 1000);
-  // CloseSideDis();
-  // CloseSideWP();
-  // FarSide();
-  // Turn(35,1200);
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+void autonomous() { Drive(-24, 100000); }
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
