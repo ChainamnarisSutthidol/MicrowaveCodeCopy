@@ -1,5 +1,6 @@
 #include "pid.hpp"
 #include "main.h"
+#include <iostream>
 
 PID::PID(double kP_, double kI_, double kD_) {
   kP = kP_;
@@ -20,9 +21,11 @@ double PID::compute(double sensorValue) {
   }
   double derivative = error - prevError;
   prevError = error;
-  pros::lcd::set_text(2, std::to_string(sensorValue));
+  pros::lcd::set_text(2, std::to_string(sensorValue)); 
   pros::lcd::set_text(3, std::to_string(error));
   pros::lcd::set_text(4, std::to_string(setpoint));
+  std::cout << sensorValue << " sensorValue, " << error << " error, "
+            << setpoint << " setpoint, " << kP << " kP, " << kI << " kI, " << kD << " kD, ";
   return error * kP + integral * kI + derivative * kD;
 }
 void Drive(double setpoint, int time) {
@@ -31,19 +34,19 @@ void Drive(double setpoint, int time) {
   double degrees_per_rotation = 480;
   double circumference = 3.25 * M_PI;
   double tick_per_inch = (degrees_per_rotation / circumference);
-  double distance = setpoint * tick_per_inch;
+  double distance = (setpoint) * tick_per_inch;
   // setpoint is in inches, so convert to ticks for degrees
-
   drive_PID.set(distance);
   // sets the target in order to drive this distance
   int t_d = 0;
-  while (true) {
+  while (t_d < time) {
     double power =
         drive_PID.compute((r1.get_position() + l1.get_position()) / 2);
+    std::cout << power << " power" <<  std::endl;
     // gets the average of the wheels to do pid more accurately
     set_tank(power, power);
     if (drive_PID.power < 0.2) {
-      t_d += 1;
+      t_d += 10;
     } else {
       t_d = 0;
     }
@@ -58,9 +61,10 @@ void Turn(double setpoint, int time) {
   turn_PID.set(setpoint);
   while (t_t < time) {
     double power = turn_PID.compute(gyro.get_rotation());
+    // std::cout << strerror(errno) << " error" << std::endl;
     set_tank(-power, power);
     if (turn_PID.power < 0.2) {
-      t_t += 1;
+      t_t += 10;
     } else {
       t_t = 0;
     }

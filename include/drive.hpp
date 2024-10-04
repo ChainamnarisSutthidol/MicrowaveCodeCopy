@@ -11,8 +11,9 @@ inline pros::Motor l2(9, pros::E_MOTOR_GEARSET_06, true);
 inline pros::Motor l3(10, pros::E_MOTOR_GEARSET_06, false);
 inline pros::Motor intakeStage1(15, pros::E_MOTOR_GEARSET_06, true);
 inline pros::Motor intakeStage2(8, pros::E_MOTOR_GEARSET_06, true);
-inline pros::Imu gyro(14);
+inline pros::Imu gyro(18);
 inline pros::ADIDigitalOut mogomech('a');
+inline pros::ADIDigitalOut doinker('b');
 
 void set_tank(int r_power, int l_power);
 void set_tankAuton(int r_power, int l_power, double drive_time);
@@ -27,4 +28,5 @@ void brake_initialize();
 void Wait(double time);
 void Slow_D(double power, double time);
 double ema(double input, double alpha);
-void mogoMech(std::string mode);
+void MogoMechActuate(std::string mode);
+void AutoIntake(double time);

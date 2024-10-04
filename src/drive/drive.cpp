@@ -3,7 +3,7 @@
 #include <string>
 
 bool mogoBool = false;
-bool brakeBool = false;
+bool doinkBool = false;
 double pastOutput = 0;
 double t_time = 0;
 std::string mode = "";
@@ -48,7 +48,12 @@ void set_tankAuton(int r_power, int l_power, double drive_time) {
   Wait(0.02);
 }
 
-void MogoMechActuate(std::string mode) { mogomech.set_value(std::stoi(mode)); }
+void MogoMechActuate(std::string mode) { 
+  mogomech.set_value(std::stoi(mode)); 
+  }
+void DoinkerActuate(std::string mode) { 
+  doinker.set_value(std::stoi(mode)); 
+  }  
 
 void joystick_control() {
   int r_joystick = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
@@ -56,30 +61,21 @@ void joystick_control() {
   set_tank(r_joystick, l_joystick); // driving using joystick y coordinates
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) == true) {
     intakeStage1.move_velocity(600);
-    intakeStage2.move_velocity(275);
+    intakeStage2.move_velocity(290);
   } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) == true) {
     intakeStage1.move_velocity(-600);
-    intakeStage2.move_velocity(-275);
+    intakeStage2.move_velocity(-290);
   } else {
     intakeStage1.move_velocity(0);
     intakeStage2.move_velocity(0);
   }
-  if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1) == true) {
+  if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN) == true) {
     mogoBool = !mogoBool;
     MogoMechActuate(std::to_string(mogoBool));
   }
-  if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
-    brakeBool = !brakeBool;
-    if (brakeBool == true) {
-      r1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      r2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      r3.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      l1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      l2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-      l3.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    } else {
-      brake_initialize();
-    }
+  if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) == true){
+    doinkBool = !doinkBool;
+
   }
 }
 double ema(double input, double alpha) {
@@ -92,4 +88,12 @@ void Slow_D(double power, double time) {
   Wait(time);
   set_tank(0, 0);
 }
-void Wait(double time) { pros::delay(time * 1000); }
+void Wait(double time) { pros::delay(time); }
+
+void AutoIntake(double time){
+  intakeStage1.move_velocity(600);
+  intakeStage2.move_velocity(290);
+  Wait(time);
+  intakeStage1.move_velocity(0);
+  intakeStage2.move_velocity(0);
+}
