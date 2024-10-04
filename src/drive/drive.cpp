@@ -75,7 +75,7 @@ void joystick_control() {
   }
   if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) == true){
     doinkBool = !doinkBool;
-
+    DoinkerActuate(std::to_string(doinkBool));
   }
 }
 double ema(double input, double alpha) {

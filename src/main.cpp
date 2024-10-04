@@ -81,8 +81,8 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() { 
-    skills();
-    // Turn(90, 750);
+    // matchAuton(3);
+    Turn(90, 750);
   }
 /**
  * Runs the operator control code. This function will be started in its own task
