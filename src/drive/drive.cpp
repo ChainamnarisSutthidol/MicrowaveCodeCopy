@@ -6,76 +6,85 @@ bool mogoBool = false;
 bool doinkBool = false;
 double pastOutput = 0;
 double t_time = 0;
-std::string mode = "";
 
 void brake_initialize() {
-  pros::Motor r1(12);
+  pros::Motor r1(3);
   r1.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
   pros::Motor r2(2);
   r2.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-  pros::Motor r3(1);
+  pros::Motor r3(12);
   l2.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-  pros::Motor l1(16);
+  pros::Motor l1(9);
   l1.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
   pros::Motor l2(10);
   l2.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-  pros::Motor l3(9);
+  pros::Motor l3(20);
   l2.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  pros::Motor ladyBrown(9);
+  ladyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
 }
 void set_tank(int r_power, int l_power) {
-  r1 = r_power;
-  r2 = r_power;
-  r3 = r_power;
-  l1 = l_power;
-  l2 = l_power;
-  l3 = l_power;
+  r1.move(r_power);
+  r2.move(r_power);
+  r3.move(r_power);
+  l1.move(l_power);
+  l2.move(l_power);
+  l3.move(l_power);
 }
 
 void set_tankAuton(int r_power, int l_power, double drive_time) {
-  r1 = r_power;
-  r2 = r_power;
-  r3 = r_power;
-  l1 = l_power;
-  l2 = l_power;
-  l3 = l_power;
+  r1.move(r_power);
+  r2.move(r_power);
+  r3.move(r_power);
+  l1.move(l_power);
+  l2.move(l_power);
+  l3.move(l_power);
   Wait(drive_time);
-  r1 = 0;
-  r2 = 0;
-  r3 = 0;
-  l1 = 0;
-  l2 = 0;
-  l3 = 0;
+  r1.move(r_power);
+  r2.move(r_power);
+  r3.move(r_power);
+  l1.move(l_power);
+  l2.move(l_power);
+  l3.move(l_power);
   Wait(0.02);
 }
-
-void MogoMechActuate(std::string mode) { 
-  mogomech.set_value(std::stoi(mode)); 
-  }
-void DoinkerActuate(std::string mode) { 
-  doinker.set_value(std::stoi(mode)); 
-  }  
 
 void joystick_control() {
   int r_joystick = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
   int l_joystick = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
   set_tank(r_joystick, l_joystick); // driving using joystick y coordinates
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) == true) {
-    intakeStage1.move_velocity(600);
-    intakeStage2.move_velocity(290);
+    intake.move_velocity(450);
   } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) == true) {
-    intakeStage1.move_velocity(-600);
-    intakeStage2.move_velocity(-290);
+    intake.move_velocity(-450);
   } else {
-    intakeStage1.move_velocity(0);
-    intakeStage2.move_velocity(0);
+    intake.move_velocity(0);
   }
   if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN) == true) {
     mogoBool = !mogoBool;
-    MogoMechActuate(std::to_string(mogoBool));
+    mogomech.set_value(mogoBool);
   }
-  if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) == true){
+  if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) == true) {
     doinkBool = !doinkBool;
-    DoinkerActuate(std::to_string(doinkBool));
+    doinker.set_value(doinkBool);
+  }
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+    ladyBrown.move_velocity(200);
+  } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+    ladyBrown.move_velocity(-200);
+    // if(rotationSensor.get_position() > 4500){
+    //   ladyBrown.move_velocity(0);
+    // }
+    // if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2) && rotationSensor.get_position() > 4500){
+    //   ladyBrown.move_velocity(-200);
+    // }
+    // if (rotationSensor.get_position() > 16000){
+    //   ladyBrown.move_velocity(0);
+    // }
+    std::cout << "Rotation: " << rotationSensor.get_position() << std::endl;
+  } else {
+    ladyBrown.move_velocity(0);
   }
 }
 double ema(double input, double alpha) {
@@ -91,9 +100,7 @@ void Slow_D(double power, double time) {
 void Wait(double time) { pros::delay(time); }
 
 void AutoIntake(double time){
-  intakeStage1.move_velocity(600);
-  intakeStage2.move_velocity(290);
+  intake.move_velocity(450);
   Wait(time);
-  intakeStage1.move_velocity(0);
-  intakeStage2.move_velocity(0);
+  intake.move_velocity(0);
 }

@@ -42,11 +42,14 @@ void initialize() {
 
   pros::lcd::initialize();
   pros::lcd::print(1, "hallo");
+  // pros::lcd::set_background_color(255, 0, 0);
 
   // pros::lcd::register_btn1_cb(on_center_button);
 
   brake_initialize();
   gyro.reset();
+  rotationSensor.reset();
+  rotationSensor.set_reversed(true);
   pros::delay(2000);
   // display.enable();
 }
@@ -80,9 +83,10 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() { 
-    // matchAuton(3);
-    Turn(90, 750);
+void autonomous() { //1 = red r 2 = red l 3 = blue r 4 = blue l
+    // matchAuton(1);
+    // Turn(90, 750);
+    Drive(12, 75000); 
   }
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -93,7 +97,7 @@ void autonomous() {
  * If no competition control is connected, this function will run immediately
  * following initialize().
  *
- * If the robot is disabled or communications is lost, the
+ * If the robot is disabled or communications is lost, theBV
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */

@@ -1,6 +1,8 @@
 #include "pid.hpp"
 #include "main.h"
+#include "pros/llemu.hpp"
 #include <iostream>
+#include <string>
 
 PID::PID(double kP_, double kI_, double kD_) {
   kP = kP_;
@@ -24,8 +26,9 @@ double PID::compute(double sensorValue) {
   pros::lcd::set_text(2, std::to_string(sensorValue)); 
   pros::lcd::set_text(3, std::to_string(error));
   pros::lcd::set_text(4, std::to_string(setpoint));
-  std::cout << sensorValue << " sensorValue, " << error << " error, "
-            << setpoint << " setpoint, " << kP << " kP, " << kI << " kI, " << kD << " kD, ";
+  pros::lcd::set_text(5, std::to_string(l1.get_position()));
+  // std::cout << sensorValue << " sensorValue, " << error << " error, "
+            // << setpoint << " setpoint, " << kP << " kP, " << kI << " kI, " << kD << " kD, ";
   return error * kP + integral * kI + derivative * kD;
 }
 void Drive(double setpoint, int time) {
@@ -42,7 +45,7 @@ void Drive(double setpoint, int time) {
   while (t_d < time) {
     double power =
         drive_PID.compute((r1.get_position() + l1.get_position()) / 2);
-    std::cout << power << " power" <<  std::endl;
+    // std::cout << power << " power" <<  std::endl;
     // gets the average of the wheels to do pid more accurately
     set_tank(power, power);
     if (drive_PID.power < 0.2) {
