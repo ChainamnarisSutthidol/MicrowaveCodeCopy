@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Red Right",
+    "project_name": "Skills",
     "target": "v5",
     "templates": {
       "EZ-GUI": {
@@ -328,7 +328,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 1
+      "slot": 5
     },
     "use_early_access": false
   }

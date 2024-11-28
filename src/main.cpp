@@ -50,6 +50,7 @@ void initialize() {
   gyro.reset();
   rotationSensor.reset();
   rotationSensor.set_reversed(true);
+  ladyBrown.tare_position();
   pros::delay(2000);
   // display.enable();
 }
@@ -84,9 +85,17 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() { //1 = red r 2 = red l 3 = blue r 4 = blue l
-    // matchAuton(1);
+    // matchAuton(2);
     // Turn(90, 750);
-    Drive(12, 75000); 
+    // Turn(180, 750);
+    // Turn(270, 750);
+    // Turn(360, 750);
+    // Turn(0, 1500);
+    // Turn(-180, 1000);
+    // Turn(180, 1000);
+    // Drive(24, 75000);
+    skills();
+    // AutoIntake(800);
   }
 /**
  * Runs the operator control code. This function will be started in its own task

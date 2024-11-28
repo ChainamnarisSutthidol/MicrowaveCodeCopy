@@ -6,18 +6,19 @@ void RedRightSide(){
     mogomech.set_value(true);
     // Drive(-12, 750);
     Slow_D(-90, 350);
-    Slow_D(-50, 550);
+    Slow_D(-50, 750);
     mogomech.set_value(false);
     Wait(350);
     AutoIntake(1000);
     pros::delay(750);
-    Turn(-90, 1000);
+    Turn(-90, 1250);
     intake.move_velocity(450);
-    Slow_D(100, 360);
+    Slow_D(90, 450);
     pros::delay(2500);
     intake.move_velocity(0);
     Turn(125, 1500);
-    Drive(15, 1000);
+    Drive(23, 1000);
+    ladyBrownMove(750);
 }
 
 void RedLeftSide(){
@@ -88,18 +89,17 @@ void BlueLeftSide(){
     mogomech.set_value(true);
     // Drive(-12, 750);
     Slow_D(-90, 350);
-    Slow_D(-50, 550);
+    Slow_D(-50, 750);
     mogomech.set_value(false);
     Wait(350);
     AutoIntake(1000);
     pros::delay(750);
     Turn(90, 1000);
     intake.move_velocity(450);
-    Slow_D(70, 600);
-    pros::delay(2000);
+    Slow_D(90, 1000);
+    pros::delay(2500);
     intake.move_velocity(0);
-    Turn(-125, 1500);
-    Drive(14, 1000);
+    Turn(0, 1000);
 }
 
 
