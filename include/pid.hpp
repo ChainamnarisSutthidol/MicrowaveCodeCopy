@@ -21,7 +21,7 @@ private:
   double integral;
 };
 
-inline PID drive_PID(3.6, 0.02, 3);
-inline PID turn_PID(1.95,50, 0.1);
+inline PID drive_PID(3.6, 10, 0.03);
+inline PID turn_PID(2, 0, 0.15);
 void Drive(double setpoint, int time);
 void Turn(double target, int time);

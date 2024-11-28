@@ -17,19 +17,19 @@ double PID::compute(double sensorValue) {
   double prevError = 0;
   if (fabs(error) < setpoint) { // fabs is absolute value for floats
     integral += error;
+    std::cout << integral << " integral " << std::endl;
   }
   if (error == 0) {
     integral = 0;
   }
   double derivative = error - prevError;
+  std::cout << derivative << " derivative " << std::endl;
   prevError = error;
   pros::lcd::set_text(2, std::to_string(sensorValue)); 
   pros::lcd::set_text(3, std::to_string(error));
   pros::lcd::set_text(4, std::to_string(setpoint));
   pros::lcd::set_text(5, std::to_string(gyro.get_rotation()));
   // pros::lcd::set_text(6, std::to_string(l1.get_position()));
-  std::cout << sensorValue << " sensorValue, " << error << " error, "
-            << setpoint << " setpoint, " << std::endl;
   return error * kP + integral * kI + derivative * kD;
 }
 void Drive(double setpoint, int time) {
@@ -48,7 +48,7 @@ void Drive(double setpoint, int time) {
         drive_PID.compute((r1.get_position() + l1.get_position()) / 2);
     // gets the average of the wheels to do pid more accurately
     set_tank(power, power);
-    if (drive_PID.error < 0.2) {
+    if (drive_PID.power < 0.2) {
       t_d += 10;
     } else {
       t_d = 0;
@@ -64,9 +64,9 @@ void Turn(double setpoint, int time) {
   turn_PID.set(setpoint);
   while (t_t < time) {
     double power = turn_PID.compute(gyro.get_rotation());
-    std::cout << gyro.get_rotation() << " gyro value" << std::endl;
+    std::cout << l1.get_actual_velocity() << " motor l1 " << r1.get_actual_velocity() << " motor r1 " << std::endl;
     set_tank(-power, power);
-    if (turn_PID.error < 0.2) {
+    if (turn_PID.power < 0.2) {
       t_t += 10;
     } else {
       t_t = 0;

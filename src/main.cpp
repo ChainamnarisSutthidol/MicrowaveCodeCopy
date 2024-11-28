@@ -86,15 +86,9 @@ void competition_initialize() {}
  */
 void autonomous() { //1 = red r 2 = red l 3 = blue r 4 = blue l
     // matchAuton(2);
-    // Turn(90, 750);
-    // Turn(180, 750);
-    // Turn(270, 750);
-    // Turn(360, 750);
-    // Turn(0, 1500);
-    // Turn(-180, 1000);
-    // Turn(180, 1000);
+    Turn(90, 75000);
     // Drive(24, 75000);
-    skills();
+    // skills();
     // AutoIntake(800);
   }
 /**

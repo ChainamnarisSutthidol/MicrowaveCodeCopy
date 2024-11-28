@@ -17,13 +17,13 @@ void skills() {
     Turn(0, 750);
     intake.move_velocity(600);
     Slow_D(90, 400);
-    Wait(650);
+    Wait(800);
     Turn(-90, 750);
     Slow_D(90, 450);
     Wait(2500);
-    Turn(-180, 1500);
-    // Slow_D(70, 800);
-    // Wait(350);
-    // Turn(-60, 1500);
+    Turn(-205, 2000);
+    Slow_D(70, 800);
+    Wait(350);
+    Turn(-135, 1500);
     // Slow_D(100, 250);
 }
